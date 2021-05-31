@@ -1,1 +1,1 @@
-rootProject.name = "diabeteshelperserver"
+rootProject.name = "com.madrat.diabeteshelperserver"

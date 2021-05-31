@@ -9,7 +9,7 @@ plugins {
 	id("org.jetbrains.kotlin.plugin.jpa") version "1.5.10"
 }
 
-group = "com.madrat"
+group = "com.com.madrat"
 version = "0.0.1-SNAPSHOT"
 java.sourceCompatibility = JavaVersion.VERSION_1_8
 
