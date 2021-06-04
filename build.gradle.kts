@@ -7,10 +7,17 @@ plugins {
 	kotlin("jvm") version "1.5.10"
 	kotlin("plugin.spring") version "1.5.10"
 	id("org.jetbrains.kotlin.plugin.jpa") version "1.5.10"
+	// War
+	war
 }
 
-group = "com.com.madrat"
-version = "0.0.1-SNAPSHOT"
+tasks.bootWar {
+	archiveBaseName.set("dh_server")
+}
+
+// group = "com.com.madrat"
+// version = "0.0.1-SNAPSHOT"
+
 java.sourceCompatibility = JavaVersion.VERSION_1_8
 
 repositories {
@@ -21,6 +28,7 @@ dependencies {
 	// Spring
 	implementation("org.springframework.boot:spring-boot-starter-data-jpa")
 	implementation("org.springframework.boot:spring-boot-starter-web")
+	providedRuntime("org.springframework.boot:spring-boot-starter-tomcat")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	// Kotlin
 	implementation("org.jetbrains.kotlin:kotlin-reflect")

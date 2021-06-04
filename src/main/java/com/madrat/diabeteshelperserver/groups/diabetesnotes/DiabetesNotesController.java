@@ -24,6 +24,11 @@ public class DiabetesNotesController {
         return "New note was saved";
     }
 
+    @GetMapping("/hello")
+    public @ResponseBody String hello(@RequestParam(value = "name", defaultValue = "World") String name) {
+        return String.format("Hello %s!", name);
+    }
+
     @GetMapping(path="/notes")
     public @ResponseBody Iterable<DiabetesNote> getAllNotes() {
         return diabetesNotesRepository.findAll();
