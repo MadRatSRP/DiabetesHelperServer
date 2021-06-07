@@ -16,12 +16,17 @@ public class DiabetesNotesController {
 
     @PostMapping("/addNote")
     public DiabetesNote addNewNote(
-            @RequestParam Double sugarLevel
+            @RequestBody DiabetesNote diabetesNote
     ) {
-        DiabetesNote diabetesNote = new DiabetesNote();
-        diabetesNote.setSugarLevel(sugarLevel);
-        diabetesNotesRepository.save(diabetesNote);
-        return diabetesNote;
+        DiabetesNote newNote = new DiabetesNote(
+                diabetesNote.getSugarLevel()
+        );
+        ResponseEntity.ok(
+                diabetesNotesRepository.save(
+                        newNote
+                )
+        );
+        return newNote;
     }
 
     @GetMapping("/hello")

@@ -2,12 +2,26 @@ package com.madrat.diabeteshelperserver.groups.diabetesnotes;
 
 import javax.persistence.*;
 
-@Entity // This tells Hibernate to make a table out of this class
+@Entity
+@Table(name = "diabetesnotes")
 public class DiabetesNote {
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "noteId")
     private Integer noteId;
+
+    @Column(name = "sugarLevel")
     private Double sugarLevel;
+
+    public DiabetesNote() {
+
+    }
+
+    public DiabetesNote(
+            Double sugarLevel
+    ) {
+       this.sugarLevel = sugarLevel;
+    }
 
     public Integer getNoteId() {
         return noteId;
@@ -23,5 +37,13 @@ public class DiabetesNote {
 
     public void setSugarLevel(Double sugarLevel) {
         this.sugarLevel = sugarLevel;
+    }
+
+    @Override
+    public String toString() {
+        return "DiabetesNote{" +
+                "noteId=" + noteId +
+                ", sugarLevel=" + sugarLevel +
+                '}';
     }
 }
