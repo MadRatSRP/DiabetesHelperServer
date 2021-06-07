@@ -3,7 +3,6 @@ package com.madrat.diabeteshelperserver.groups.diabetesnotes;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
@@ -60,11 +59,11 @@ public class DiabetesNotesController {
         }
     }
 
-    @DeleteMapping("/notes/{id}")
-    public String removeNote(
-            @PathVariable Integer id
+    @DeleteMapping("/notes/{noteId}")
+    public Integer removeNote(
+            @PathVariable Integer noteId
     ) {
-        diabetesNotesRepository.deleteById(id);
-        return "Note was removed";
+        diabetesNotesRepository.deleteById(noteId);
+        return noteId;
     }
 }
