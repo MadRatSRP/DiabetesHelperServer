@@ -38,25 +38,20 @@ public class DiabetesNotesController {
         return diabetesNotesRepository.findAll();
     }
 
-    @PutMapping("/notes/{id}")
-    public ResponseEntity<DiabetesNote> updateDiabetesNote(
-            @PathVariable Integer id,
+    @PutMapping("/notes/{noteId}")
+    public DiabetesNote updateDiabetesNote(
+            @PathVariable Integer noteId,
             @RequestBody DiabetesNote diabetesNote
     ) {
-        Optional<DiabetesNote> diabetesNoteData = diabetesNotesRepository.findById(id);
-
-        if (diabetesNoteData.isPresent()) {
-            DiabetesNote currentDiabetesNote = diabetesNoteData.get();
-            currentDiabetesNote.setSugarLevel(
-                    diabetesNote.getSugarLevel()
-            );
-            return new ResponseEntity<>(
-                    diabetesNotesRepository.save(currentDiabetesNote),
-                    HttpStatus.OK
-            );
-        } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+        Optional<DiabetesNote> tutorialData = diabetesNotesRepository.findById(noteId);
+        DiabetesNote updatedDiabetesNote = tutorialData.get();
+        updatedDiabetesNote.setSugarLevel(diabetesNote.getSugarLevel());
+        ResponseEntity.ok(
+                diabetesNotesRepository.save(
+                        updatedDiabetesNote
+                )
+        );
+        return updatedDiabetesNote;
     }
 
     @DeleteMapping("/notes/{noteId}")
