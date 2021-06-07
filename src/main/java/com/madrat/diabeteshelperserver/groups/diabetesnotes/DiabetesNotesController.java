@@ -8,33 +8,33 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
 
-@Controller
+@RestController
 @RequestMapping(path="/diabetesNotes")
 public class DiabetesNotesController {
     @Autowired
     private DiabetesNotesRepository diabetesNotesRepository;
 
-    @PostMapping(path="/addNote")
-    public @ResponseBody String addNewNote(
+    @PostMapping("/addNote")
+    public DiabetesNote addNewNote(
             @RequestParam Double sugarLevel
     ) {
         DiabetesNote diabetesNote = new DiabetesNote();
         diabetesNote.setSugarLevel(sugarLevel);
         diabetesNotesRepository.save(diabetesNote);
-        return "New note was saved";
+        return diabetesNote;
     }
 
     @GetMapping("/hello")
-    public @ResponseBody String hello(@RequestParam(value = "name", defaultValue = "World") String name) {
+    public String hello(@RequestParam(value = "name", defaultValue = "World") String name) {
         return String.format("Hello %s!", name);
     }
 
-    @GetMapping(path="/notes")
-    public @ResponseBody Iterable<DiabetesNote> getAllNotes() {
+    @GetMapping("/notes")
+    public Iterable<DiabetesNote> getAllNotes() {
         return diabetesNotesRepository.findAll();
     }
 
-    @PutMapping(path="/notes/{id}")
+    @PutMapping("/notes/{id}")
     public ResponseEntity<DiabetesNote> updateDiabetesNote(
             @PathVariable Integer id,
             @RequestBody DiabetesNote diabetesNote
@@ -55,8 +55,8 @@ public class DiabetesNotesController {
         }
     }
 
-    @DeleteMapping(path="/notes/{id}")
-    public @ResponseBody String removeNote(
+    @DeleteMapping("/notes/{id}")
+    public String removeNote(
             @PathVariable Integer id
     ) {
         diabetesNotesRepository.deleteById(id);
