@@ -1,7 +1,5 @@
 package com.madrat.diabeteshelperserver.groups.user;
 
-import com.madrat.diabeteshelperserver.groups.foodnotes.FoodNote;
-import com.madrat.diabeteshelperserver.groups.foodnotes.FoodNotesRepository;
 import com.madrat.diabeteshelperserver.groups.user.model.RequestRegisterUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -14,9 +12,6 @@ import java.util.Optional;
 public class UserController {
     @Autowired
     private UserRepository userRepository;
-
-    @Autowired
-    private UserService userService;
 
     @PostMapping("/register")
     public Integer registerNewUser(
@@ -40,6 +35,7 @@ public class UserController {
         return userHashcode;
     }
 
+    /*
     @PostMapping("/authorize")
     public User authorizeUser(
             @RequestBody String emailOrPhoneNumber,
@@ -62,4 +58,5 @@ public class UserController {
             return null;
         }
     }
+     */
 }
