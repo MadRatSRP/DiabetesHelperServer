@@ -1,4 +1,4 @@
-package com.madrat.diabeteshelperserver.groups.user;
+package com.madrat.diabeteshelperserver.groups.user.model;
 
 import javax.persistence.*;
 

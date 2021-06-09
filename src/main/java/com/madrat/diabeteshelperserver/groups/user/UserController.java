@@ -1,11 +1,11 @@
 package com.madrat.diabeteshelperserver.groups.user;
 
+import com.madrat.diabeteshelperserver.groups.user.model.RequestAuthorizeUser;
 import com.madrat.diabeteshelperserver.groups.user.model.RequestRegisterUser;
+import com.madrat.diabeteshelperserver.groups.user.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.Optional;
 
 @RestController
 @RequestMapping(path="/users")
@@ -13,8 +13,8 @@ public class UserController {
     @Autowired
     private UserRepository userRepository;
 
-    @PostMapping("/register")
-    public Integer registerNewUser(
+    @PostMapping("/registerUser")
+    public Integer registerUser(
             @RequestBody RequestRegisterUser requestRegisterUser
     ) {
         User user = new User(
@@ -35,28 +35,25 @@ public class UserController {
         return userHashcode;
     }
 
-    /*
-    @PostMapping("/authorize")
+    @PostMapping("/authorizeUser")
     public User authorizeUser(
-            @RequestBody String emailOrPhoneNumber,
-            @RequestBody String password
+            @RequestBody RequestAuthorizeUser requestAuthorizeUser
     ) {
-        User userByLogin = userService.findByEmailOrPhoneNumber(emailOrPhoneNumber);
-        User userByPassword = userService.findByPassword(password);
+        User savedLogin = userRepository.findByEmailOrPhoneNumber(
+                requestAuthorizeUser.getEmailOrPhoneNumber()
+        );
 
-        if (userByLogin.getEmailOrPhoneNumber().equals(userByPassword.getEmailOrPhoneNumber())
-                && userByLogin.getPassword().equals(userByPassword.getPassword())) {
-            userByLogin.setAuthorized(true);
+        if (savedLogin.getPassword().equals(requestAuthorizeUser.getPassword())) {
+            savedLogin.setAuthorized(true);
 
             ResponseEntity.ok(
                     userRepository.save(
-                            userByLogin
+                            savedLogin
                     )
             );
-            return userByLogin;
+            return savedLogin;
         } else {
             return null;
         }
     }
-     */
 }
