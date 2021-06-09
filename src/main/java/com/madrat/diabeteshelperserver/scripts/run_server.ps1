@@ -13,7 +13,7 @@ Set-Location -Path "$PathServer$SubBin/"
 Set-Location -Path "$PathServer$SubWebApps/"
 # TODO - упростить проверку наличия папки до 1 команды
 if (Test-Path -Path "dh_server") {
-    Remove-Item -Recurse -Force "dh_server"
+    Remove-Item -Recurse -Force "dh_server\*"
     "Old Folder removed!"
 }
 if (Test-Path -Path "dh_server.war" -PathType Leaf) {
@@ -32,4 +32,3 @@ Test-Path -Path "$PathServer$SubWebApps/dh_server.war"
 Set-Location -Path "$PathServer$SubBin/"
 ./startup.sh
 "Server started!"
-
