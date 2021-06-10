@@ -1,14 +1,18 @@
 package com.madrat.diabeteshelperserver.groups.user.model;
 
+import com.madrat.diabeteshelperserver.groups.diabetesnotes.DiabetesNote;
+
 import javax.persistence.*;
+import java.util.Collection;
+import java.util.Set;
 
 @Entity
 @Table(name = "users")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "userId")
-    private Integer userId;
+    @Column(name = "id")
+    private Integer id;
 
     @Column(name = "emailOrPhoneNumber")
     private String emailOrPhoneNumber;
@@ -22,6 +26,12 @@ public class User {
     @Column(name = "isAuthorized")
     private Boolean isAuthorized;
 
+    @ManyToMany(
+            fetch = FetchType.EAGER,
+            mappedBy = "users"
+    )
+    private Collection<DiabetesNote> diabetesNotes;
+
     public User() {
 
     }
@@ -32,12 +42,20 @@ public class User {
         this.isAuthorized = false;
     }
 
-    public Integer getUserId() {
-        return userId;
+    public Collection<DiabetesNote> getDiabetesNotes() {
+        return diabetesNotes;
     }
 
-    public void setUserId(Integer userId) {
-        this.userId = userId;
+    public void setDiabetesNotes(Collection<DiabetesNote> diabetesNotes) {
+        this.diabetesNotes = diabetesNotes;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer userId) {
+        this.id = userId;
     }
 
     public String getEmailOrPhoneNumber() {
@@ -75,7 +93,7 @@ public class User {
     @Override
     public String toString() {
         return "User{" +
-                "userId=" + userId +
+                "id=" + id +
                 ", emailOrPhoneNumber='" + emailOrPhoneNumber + '\'' +
                 ", password='" + password + '\'' +
                 ", userHashcode=" + userHashcode +

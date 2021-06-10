@@ -8,8 +8,8 @@ import javax.persistence.*;
 public class FoodNote {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "noteId")
-    private Integer noteId;
+    @Column(name = "id")
+    private Integer id;
 
     @Column(name = "foodName")
     private String foodName;
@@ -18,16 +18,18 @@ public class FoodNote {
 
     }
 
-    public FoodNote(String foodName) {
+    public FoodNote(
+            String foodName
+    ) {
         this.foodName = foodName;
     }
 
-    public Integer getNoteId() {
-        return noteId;
+    public Integer getId() {
+        return id;
     }
 
-    public void setNoteId(Integer noteId) {
-        this.noteId = noteId;
+    public void setId(Integer noteId) {
+        this.id = noteId;
     }
 
     public String getFoodName() {
@@ -41,7 +43,7 @@ public class FoodNote {
     @Override
     public String toString() {
         return "FoodNote{" +
-                "noteId=" + noteId +
+                "id=" + id +
                 ", foodName='" + foodName + '\'' +
                 '}';
     }

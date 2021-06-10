@@ -1,10 +1,13 @@
 package com.madrat.diabeteshelperserver.groups.diabetesnotes;
 
+import com.madrat.diabeteshelperserver.groups.diabetesnotes.model.RequestAddDiabetesNote;
+import com.madrat.diabeteshelperserver.groups.user.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.Optional;
 
 @RestController
@@ -15,8 +18,10 @@ public class DiabetesNotesController {
 
     @PostMapping("/addNote")
     public DiabetesNote addNewNote(
-            @RequestBody DiabetesNote diabetesNote
+            @RequestBody RequestAddDiabetesNote requestAddDiabetesNote
     ) {
+        Collection<User> user = requestAddDiabetesNote.getDiabetesNote().getUsers();
+
         DiabetesNote newNote = new DiabetesNote(
                 diabetesNote.getSugarLevel()
         );
