@@ -17,30 +17,19 @@ public class DiabetesNote {
     @Column(name = "sugarLevel")
     private Double sugarLevel;
 
-    @ManyToMany
-    @JoinTable(
-            name="author_book",
-            joinColumns = @JoinColumn(name="diabetes_id", referencedColumnName="id"),
-            inverseJoinColumns = @JoinColumn(name="user_id", referencedColumnName="id")
-    )
-    private Collection<User> users;
+    @Column(name = "userId")
+    private Integer userId;
 
     public DiabetesNote() {
 
     }
 
     public DiabetesNote(
-            Double sugarLevel
+            Double sugarLevel,
+            Integer userId
     ) {
        this.sugarLevel = sugarLevel;
-    }
-
-    public Collection<User> getUsers() {
-        return users;
-    }
-
-    public void setUsers(Collection<User> users) {
-        this.users = users;
+       this.userId = userId;
     }
 
     public Integer getId() {
@@ -59,11 +48,20 @@ public class DiabetesNote {
         this.sugarLevel = sugarLevel;
     }
 
+    public Integer getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Integer userId) {
+        this.userId = userId;
+    }
+
     @Override
     public String toString() {
         return "DiabetesNote{" +
                 "id=" + id +
                 ", sugarLevel=" + sugarLevel +
+                ", userId=" + userId +
                 '}';
     }
 }

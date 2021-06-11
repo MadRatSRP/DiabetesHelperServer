@@ -26,12 +26,6 @@ public class User {
     @Column(name = "isAuthorized")
     private Boolean isAuthorized;
 
-    @ManyToMany(
-            fetch = FetchType.EAGER,
-            mappedBy = "users"
-    )
-    private Collection<DiabetesNote> diabetesNotes;
-
     public User() {
 
     }
@@ -40,14 +34,6 @@ public class User {
         this.emailOrPhoneNumber = emailOrPhoneNumber;
         this.password = password;
         this.isAuthorized = false;
-    }
-
-    public Collection<DiabetesNote> getDiabetesNotes() {
-        return diabetesNotes;
-    }
-
-    public void setDiabetesNotes(Collection<DiabetesNote> diabetesNotes) {
-        this.diabetesNotes = diabetesNotes;
     }
 
     public Integer getId() {

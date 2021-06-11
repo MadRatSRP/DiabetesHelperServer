@@ -1,6 +1,8 @@
 package com.madrat.diabeteshelperserver.groups.diabetesnotes;
 
 import com.madrat.diabeteshelperserver.groups.diabetesnotes.model.RequestAddDiabetesNote;
+import com.madrat.diabeteshelperserver.groups.diabetesnotes.model.RequestGetDiabetesNotes;
+import com.madrat.diabeteshelperserver.groups.user.UserRepository;
 import com.madrat.diabeteshelperserver.groups.user.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -8,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Optional;
 
 @RestController
@@ -16,14 +19,20 @@ public class DiabetesNotesController {
     @Autowired
     private DiabetesNotesRepository diabetesNotesRepository;
 
+    @Autowired
+    private UserRepository userRepository;
+
     @PostMapping("/addNote")
     public DiabetesNote addNewNote(
             @RequestBody RequestAddDiabetesNote requestAddDiabetesNote
     ) {
-        Collection<User> user = requestAddDiabetesNote.getDiabetesNote().getUsers();
+        User currentUser = userRepository.findByUserHashcode(
+                requestAddDiabetesNote.getUserHashcode()
+        );
 
         DiabetesNote newNote = new DiabetesNote(
-                diabetesNote.getSugarLevel()
+                requestAddDiabetesNote.getDiabetesNote().getSugarLevel(),
+                currentUser.getId()
         );
         ResponseEntity.ok(
                 diabetesNotesRepository.save(
@@ -38,9 +47,22 @@ public class DiabetesNotesController {
         return String.format("Hello %s!", name);
     }
 
-    @GetMapping("/notes")
-    public Iterable<DiabetesNote> getAllNotes() {
-        return diabetesNotesRepository.findAll();
+    @PostMapping("/")
+    public ResponseEntity<Collection<DiabetesNote>> getNotes(
+            @RequestBody String userHashcode
+    ) {
+        User currentUser = userRepository.findByUserHashcode(
+                //requestGetDiabetesNotes.getUserHashcode()
+                userHashcode
+        );
+
+        System.out.print(currentUser);
+
+        Collection<DiabetesNote> collection = diabetesNotesRepository.findByUserId(currentUser.getId());
+
+        System.out.print(collection);
+
+        return new ResponseEntity<>(collection, HttpStatus.OK);
     }
 
     @PutMapping("/notes/{noteId}")
