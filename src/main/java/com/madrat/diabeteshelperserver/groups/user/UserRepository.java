@@ -7,7 +7,4 @@ import org.springframework.data.jpa.repository.Query;
 public interface UserRepository extends JpaRepository<User, Integer> {
     @Query("SELECT u FROM User u WHERE u.emailOrPhoneNumber = :emailOrPhoneNumber")
     User findByEmailOrPhoneNumber(String emailOrPhoneNumber);
-
-    @Query("SELECT u FROM User u WHERE u.userHashcode = :userHashcode")
-    User findByUserHashcode(String userHashcode);
 }

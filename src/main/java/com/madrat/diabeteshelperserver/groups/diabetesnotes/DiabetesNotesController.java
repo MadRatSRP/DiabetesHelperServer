@@ -19,20 +19,12 @@ public class DiabetesNotesController {
     @Autowired
     private DiabetesNotesRepository diabetesNotesRepository;
 
-    @Autowired
-    private UserRepository userRepository;
-
     @PostMapping("/addNote")
     public DiabetesNote addNewNote(
-            @RequestBody RequestAddDiabetesNote requestAddDiabetesNote
+            @RequestBody Double sugarLevel
     ) {
-        User currentUser = userRepository.findByUserHashcode(
-                requestAddDiabetesNote.getUserHashcode()
-        );
-
         DiabetesNote newNote = new DiabetesNote(
-                requestAddDiabetesNote.getDiabetesNote().getSugarLevel(),
-                currentUser.getId()
+                sugarLevel
         );
         ResponseEntity.ok(
                 diabetesNotesRepository.save(
@@ -47,22 +39,9 @@ public class DiabetesNotesController {
         return String.format("Hello %s!", name);
     }
 
-    @PostMapping("/")
-    public ResponseEntity<Collection<DiabetesNote>> getNotes(
-            @RequestBody String userHashcode
-    ) {
-        User currentUser = userRepository.findByUserHashcode(
-                //requestGetDiabetesNotes.getUserHashcode()
-                userHashcode
-        );
-
-        System.out.print(currentUser);
-
-        Collection<DiabetesNote> collection = diabetesNotesRepository.findByUserId(currentUser.getId());
-
-        System.out.print(collection);
-
-        return new ResponseEntity<>(collection, HttpStatus.OK);
+    @GetMapping("/notes")
+    public Iterable<DiabetesNote> getAllNotes() {
+        return diabetesNotesRepository.findAll();
     }
 
     @PutMapping("/notes/{noteId}")

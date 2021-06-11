@@ -17,19 +17,14 @@ public class DiabetesNote {
     @Column(name = "sugarLevel")
     private Double sugarLevel;
 
-    @Column(name = "userId")
-    private Integer userId;
-
     public DiabetesNote() {
 
     }
 
     public DiabetesNote(
-            Double sugarLevel,
-            Integer userId
+            Double sugarLevel
     ) {
        this.sugarLevel = sugarLevel;
-       this.userId = userId;
     }
 
     public Integer getId() {
@@ -46,22 +41,5 @@ public class DiabetesNote {
 
     public void setSugarLevel(Double sugarLevel) {
         this.sugarLevel = sugarLevel;
-    }
-
-    public Integer getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Integer userId) {
-        this.userId = userId;
-    }
-
-    @Override
-    public String toString() {
-        return "DiabetesNote{" +
-                "id=" + id +
-                ", sugarLevel=" + sugarLevel +
-                ", userId=" + userId +
-                '}';
     }
 }
