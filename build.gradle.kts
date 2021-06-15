@@ -9,13 +9,21 @@ plugins {
 	id("org.jetbrains.kotlin.plugin.jpa") version "1.5.10"
 	// War
 	war
+	
+	id("java")
+	id("io.franzbecker.gradle-lombok") version "4.0.0"
+}
+
+lombok { // optional: values below are the defaults
+	version = "1.18.12"
+	sha256 = ""
 }
 
 tasks.bootWar {
 	archiveBaseName.set("dh_server")
 }
 
-// group = "com.com.madrat"
+// group = "com.com.com.madrat"
 // version = "0.0.1-SNAPSHOT"
 
 java.sourceCompatibility = JavaVersion.VERSION_1_8

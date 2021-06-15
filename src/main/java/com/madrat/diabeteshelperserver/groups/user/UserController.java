@@ -10,32 +10,20 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping(path="/users")
 public class UserController {
-    @Autowired
-    private UserRepository userRepository;
 
+    @Autowired
+    UserServiceImpl userService;
+    
     @PostMapping("/registerUser")
     public Integer registerUser(
             @RequestBody RequestRegisterUser requestRegisterUser
     ) {
-        User user = new User(
-                requestRegisterUser.getEmailOrPhoneNumber(),
-                requestRegisterUser.getPassword()
+        return userService.registerUser(
+            requestRegisterUser
         );
-        Integer userHashcode = (
-                requestRegisterUser.getEmailOrPhoneNumber() +
-                        "0/1=2*3^7-9" +
-                requestRegisterUser.getPassword()
-        ).hashCode();
-        user.setUserHashcode(userHashcode);
-        ResponseEntity.ok(
-                userRepository.save(
-                        user
-                )
-        );
-        return userHashcode;
     }
 
-    @PostMapping("/authorizeUser")
+    /*@PostMapping("/authorizeUser")
     public User authorizeUser(
             @RequestBody RequestAuthorizeUser requestAuthorizeUser
     ) {
@@ -55,5 +43,5 @@ public class UserController {
         } else {
             return null;
         }
-    }
+    }*/
 }

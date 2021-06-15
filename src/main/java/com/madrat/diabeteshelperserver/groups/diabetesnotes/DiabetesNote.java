@@ -1,10 +1,6 @@
 package com.madrat.diabeteshelperserver.groups.diabetesnotes;
 
-import com.madrat.diabeteshelperserver.groups.user.model.User;
-
 import javax.persistence.*;
-import java.util.Collection;
-import java.util.Set;
 
 @Entity
 @Table(name = "diabetesnotes")
