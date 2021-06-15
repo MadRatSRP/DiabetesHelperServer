@@ -19,9 +19,16 @@ public interface UserRepository extends JpaRepository<User, Integer> {
     
     @Modifying
     @Transactional
-    @Query("UPDATE User u SET u.isAuthorized = :isAuthorized WHERE u.emailOrPhoneNumber = :emailOrPhoneNumber")
-    void updateUserIsAuthorised(
+    @Query("UPDATE User u SET u.isAuthorized = true WHERE u.emailOrPhoneNumber = :emailOrPhoneNumber AND u.password = :password")
+    void authorizeUser(
         @Param("emailOrPhoneNumber") String emailOrPhoneNumber,
-        @Param("isAuthorized") Boolean isAuthorized
+        @Param("password") String password
+    );
+    
+    @Modifying
+    @Transactional
+    @Query("UPDATE User u SET u.isAuthorized = false WHERE u.userHashcode = :userHashcode")
+    void unauthorizeUser(
+        @Param("userHashcode") Integer userHashcode
     );
 }

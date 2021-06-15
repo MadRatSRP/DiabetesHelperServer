@@ -6,6 +6,7 @@ import com.madrat.diabeteshelperserver.groups.user.model.User;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.repository.query.Param;
 
 @SpringBootTest
 class UsersTest {
@@ -14,24 +15,49 @@ class UsersTest {
     UserServiceImpl userService;
     
     @Test
-    void testExample() {
+    void mainTest() {
         userService.deleteAllRows();
         
-        Integer userHashcode = addUser();
-        
-        User currentUser = getUserByHashcode(userHashcode);
-        
-        authorizeUser(true);
-        
+        testUserMethods(
+            "jojo",
+            "1234"
+        );
+        testUserMethods(
+            "jopka",
+            "12345"
+        );
+        testUserMethods(
+            "lolka",
+            "1234567"
+        );
+    }
+    
+    void testUserMethods(
+        String login,
+        String password
+    ) {
+        Integer userHashcode = addUser(
+            login,
+            password
+        );
+    
+        User registeredUser = getUserByHashcode(userHashcode);
+    
+        authorizeUser(
+            login,
+            password
+        );
+    
         User userAuthorized = getUserByHashcode(userHashcode);
         
-        authorizeUser(false);
+        unauthorizeUser(userHashcode);
         
-        User userUnauthorized = getUserByHashcode(userHashcode);
+        /*authorizeUser(false);
         
-        System.out.println(currentUser.toString());
-        System.out.println(userAuthorized.toString());
-        System.out.println(userUnauthorized.toString());
+        User userUnauthorized = getUserByHashcode(userHashcode);*/
+    
+        /*System.out.println(registeredUser.toString());
+        System.out.println(userAuthorized.toString());*/
     }
     
     User getUserByHashcode(
@@ -40,18 +66,32 @@ class UsersTest {
         return userService.getUserByHashcode(userHashcode);
     }
     
-    Integer addUser() {
+    Integer addUser(
+        String emailOrPhoneNumber,
+        String password
+    ) {
         RequestRegisterUser user = new RequestRegisterUser(
-            "jojo",
-            "1234"
+            emailOrPhoneNumber,
+            password
         );
         return userService.registerUser(user);
     }
     
-    void authorizeUser(boolean isAuthorized) {
+    void authorizeUser(
+        String emailOrPhoneNumber,
+        String password
+    ) {
         userService.authorizeUser(
-            "jojo",
-            isAuthorized
+            emailOrPhoneNumber,
+            password
+        );
+    }
+    
+    void unauthorizeUser(
+        Integer userHashcode
+    ) {
+        userService.unauthorizeUser(
+            userHashcode
         );
     }
 }

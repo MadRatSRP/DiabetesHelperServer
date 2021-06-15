@@ -3,7 +3,6 @@ package com.madrat.diabeteshelperserver.groups.user;
 import com.madrat.diabeteshelperserver.groups.user.model.RequestRegisterUser;
 import com.madrat.diabeteshelperserver.groups.user.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.query.Param;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -45,10 +44,19 @@ public class UserServiceImpl implements UserInterface{
     
     public void authorizeUser(
         String emailOrPhoneNumber,
-        Boolean isAuthorized
+        String password
     ) {
-        userRepository.updateUserIsAuthorised(
-            emailOrPhoneNumber, isAuthorized
+        userRepository.authorizeUser(
+            emailOrPhoneNumber,
+            password
+        );
+    }
+    
+    public void unauthorizeUser(
+        Integer userHashcode
+    ) {
+        userRepository.unauthorizeUser(
+            userHashcode
         );
     }
 }
