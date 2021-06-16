@@ -6,7 +6,6 @@ import com.madrat.diabeteshelperserver.groups.user.model.User;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.data.repository.query.Param;
 
 @SpringBootTest
 class UsersTest {
@@ -36,7 +35,7 @@ class UsersTest {
         String login,
         String password
     ) {
-        Integer userHashcode = addUser(
+        String userHashcode = addUser(
             login,
             password
         );
@@ -61,12 +60,12 @@ class UsersTest {
     }
     
     User getUserByHashcode(
-        Integer userHashcode
+        String userHashcode
     ) {
         return userService.getUserByHashcode(userHashcode);
     }
     
-    Integer addUser(
+    String addUser(
         String emailOrPhoneNumber,
         String password
     ) {
@@ -88,7 +87,7 @@ class UsersTest {
     }
     
     void unauthorizeUser(
-        Integer userHashcode
+        String userHashcode
     ) {
         userService.unauthorizeUser(
             userHashcode

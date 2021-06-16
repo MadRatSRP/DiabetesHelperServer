@@ -9,10 +9,9 @@ import java.util.Optional;
 @RestController
 @RequestMapping(path="/diabetesNotes")
 public class DiabetesNotesController {
-    @Autowired
-    private DiabetesNotesRepository diabetesNotesRepository;
 
-    @PostMapping("/addNote")
+
+    /*@PostMapping("/addNote")
     public DiabetesNote addNewNote(
             @RequestBody Double sugarLevel
     ) {
@@ -59,5 +58,5 @@ public class DiabetesNotesController {
     ) {
         diabetesNotesRepository.deleteById(noteId);
         return noteId;
-    }
+    }*/
 }

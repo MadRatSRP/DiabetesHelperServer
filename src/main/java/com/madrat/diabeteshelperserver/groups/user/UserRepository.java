@@ -12,7 +12,7 @@ public interface UserRepository extends JpaRepository<User, Integer> {
     void deleteAll();
     
     @Query("SELECT u FROM User u WHERE u.userHashcode = :userHashcode")
-    User findByUserHashcode(Integer userHashcode);
+    User findByUserHashcode(String userHashcode);
     
     @Query("SELECT u FROM User u WHERE u.emailOrPhoneNumber = :emailOrPhoneNumber")
     User findByEmailOrPhoneNumber(String emailOrPhoneNumber);
@@ -29,6 +29,6 @@ public interface UserRepository extends JpaRepository<User, Integer> {
     @Transactional
     @Query("UPDATE User u SET u.isAuthorized = false WHERE u.userHashcode = :userHashcode")
     void unauthorizeUser(
-        @Param("userHashcode") Integer userHashcode
+        @Param("userHashcode") String userHashcode
     );
 }

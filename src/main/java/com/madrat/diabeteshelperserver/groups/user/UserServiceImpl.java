@@ -7,7 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 @Service
-public class UserServiceImpl implements UserInterface{
+public class UserServiceImpl implements UserService {
     @Autowired
     private UserRepository userRepository;
     
@@ -16,23 +16,23 @@ public class UserServiceImpl implements UserInterface{
     }
     
     public User getUserByHashcode(
-        Integer userHashcode
+        String userHashcode
     ) {
         return userRepository.findByUserHashcode(userHashcode);
     }
     
-    public Integer registerUser(
+    public String registerUser(
         RequestRegisterUser requestRegisterUser
     ) {
         User user = new User(
             requestRegisterUser.getEmailOrPhoneNumber(),
             requestRegisterUser.getPassword()
         );
-        Integer userHashcode = (
+        String userHashcode = String.valueOf((
             requestRegisterUser.getEmailOrPhoneNumber() +
                 "0/1=2*3^7-9" +
                 requestRegisterUser.getPassword()
-        ).hashCode();
+        ).hashCode());
         user.setUserHashcode(userHashcode);
         ResponseEntity.ok(
             userRepository.save(
@@ -53,7 +53,7 @@ public class UserServiceImpl implements UserInterface{
     }
     
     public void unauthorizeUser(
-        Integer userHashcode
+        String userHashcode
     ) {
         userRepository.unauthorizeUser(
             userHashcode

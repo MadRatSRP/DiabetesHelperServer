@@ -23,7 +23,7 @@ public class User {
     private String password;
 
     @Column(name = "userHashcode")
-    private Integer userHashcode;
+    private String userHashcode;
 
     @Column(name = "isAuthorized")
     private Boolean isAuthorized;

@@ -1,41 +1,31 @@
 package com.madrat.diabeteshelperserver.groups.diabetesnotes;
 
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import javax.persistence.*;
 
 @Entity
 @Table(name = "diabetesnotes")
+@Data
+@NoArgsConstructor
 public class DiabetesNote {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
     private Integer id;
 
+    @Column(name = "userId")
+    private Integer userId;
+    
     @Column(name = "sugarLevel")
     private Double sugarLevel;
 
-    public DiabetesNote() {
-
-    }
-
     public DiabetesNote(
+            Integer userId,
             Double sugarLevel
     ) {
+       this.userId = userId;
        this.sugarLevel = sugarLevel;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public Double getSugarLevel() {
-        return sugarLevel;
-    }
-
-    public void setSugarLevel(Double sugarLevel) {
-        this.sugarLevel = sugarLevel;
     }
 }
