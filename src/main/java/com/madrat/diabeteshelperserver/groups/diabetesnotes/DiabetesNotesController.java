@@ -1,62 +1,58 @@
 package com.madrat.diabeteshelperserver.groups.diabetesnotes;
 
+import com.madrat.diabeteshelperserver.groups.diabetesnotes.model.RequestAddDiabetesNote;
+import com.madrat.diabeteshelperserver.groups.diabetesnotes.model.RequestDeleteDiabetesNote;
+import com.madrat.diabeteshelperserver.groups.diabetesnotes.model.RequestGetDiabetesNotes;
+import com.madrat.diabeteshelperserver.groups.diabetesnotes.model.RequestUpdateDiabetesNote;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Optional;
+import java.util.List;
 
 @RestController
 @RequestMapping(path="/diabetesNotes")
 public class DiabetesNotesController {
-
-
-    /*@PostMapping("/addNote")
+    @Autowired
+    DiabetesServiceImpl diabetesService;
+    
+    @PostMapping("/addNote")
     public DiabetesNote addNewNote(
-            @RequestBody Double sugarLevel
+        @RequestBody RequestAddDiabetesNote requestAddDiabetesNote
     ) {
-        DiabetesNote newNote = new DiabetesNote(
-                sugarLevel
-        );
-        ResponseEntity.ok(
-                diabetesNotesRepository.save(
-                        newNote
-                )
-        );
-        return newNote;
+        return diabetesService.addNote(requestAddDiabetesNote);
     }
-
+    
     @GetMapping("/hello")
     public String hello(@RequestParam(value = "name", defaultValue = "World") String name) {
         return String.format("Hello %s!", name);
     }
-
+    
     @GetMapping("/notes")
-    public Iterable<DiabetesNote> getAllNotes() {
-        return diabetesNotesRepository.findAll();
+    public List<DiabetesNote> getAllNotes(
+        @RequestParam RequestGetDiabetesNotes requestGetDiabetesNotes
+    ) {
+        return diabetesService.getAllNotes(requestGetDiabetesNotes);
     }
-
+    
     @PutMapping("/notes/{noteId}")
-    public DiabetesNote updateDiabetesNote(
-            @PathVariable Integer noteId,
-            @RequestBody DiabetesNote diabetesNote
+    public void updateDiabetesNote(
+        @PathVariable Integer noteId,
+        @RequestBody RequestUpdateDiabetesNote requestUpdateDiabetesNote
     ) {
-        Optional<DiabetesNote> tutorialData = diabetesNotesRepository.findById(noteId);
-        DiabetesNote updatedDiabetesNote = tutorialData.get();
-        updatedDiabetesNote.setSugarLevel(diabetesNote.getSugarLevel());
-        ResponseEntity.ok(
-                diabetesNotesRepository.save(
-                        updatedDiabetesNote
-                )
+        diabetesService.updateNote(
+            noteId,
+            requestUpdateDiabetesNote
         );
-        return updatedDiabetesNote;
     }
-
+    
     @DeleteMapping("/notes/{noteId}")
-    public Integer removeNote(
-            @PathVariable Integer noteId
+    public void removeNote(
+        @PathVariable Integer noteId,
+        @RequestParam RequestDeleteDiabetesNote requestDeleteDiabetesNote
     ) {
-        diabetesNotesRepository.deleteById(noteId);
-        return noteId;
-    }*/
+        diabetesService.removeNote(
+            noteId,
+            requestDeleteDiabetesNote
+        );
+    }
 }

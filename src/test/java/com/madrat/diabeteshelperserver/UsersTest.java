@@ -1,7 +1,9 @@
 package com.madrat.diabeteshelperserver;
 
 import com.madrat.diabeteshelperserver.groups.user.UserServiceImpl;
+import com.madrat.diabeteshelperserver.groups.user.model.RequestAuthorizeUser;
 import com.madrat.diabeteshelperserver.groups.user.model.RequestRegisterUser;
+import com.madrat.diabeteshelperserver.groups.user.model.RequestUnauthorizeUser;
 import com.madrat.diabeteshelperserver.groups.user.model.User;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -96,8 +98,10 @@ class UsersTest {
         String password
     ) {
         return userService.authorizeUser(
-            emailOrPhoneNumber,
-            password
+            new RequestAuthorizeUser(
+                emailOrPhoneNumber,
+                password
+            )
         );
     }
     
@@ -105,7 +109,9 @@ class UsersTest {
         String userHashcode
     ) {
         userService.unauthorizeUser(
-            userHashcode
+            new RequestUnauthorizeUser(
+                userHashcode
+            )
         );
     }
 }

@@ -7,6 +7,6 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class RequestGetDiabetesNotes {
+public class RequestDeleteDiabetesNote {
     String userHashcode;
 }
