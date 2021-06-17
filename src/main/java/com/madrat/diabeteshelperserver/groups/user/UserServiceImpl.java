@@ -1,6 +1,8 @@
 package com.madrat.diabeteshelperserver.groups.user;
 
+import com.madrat.diabeteshelperserver.groups.user.model.RequestAuthorizeUser;
 import com.madrat.diabeteshelperserver.groups.user.model.RequestRegisterUser;
+import com.madrat.diabeteshelperserver.groups.user.model.RequestUnauthorizeUser;
 import com.madrat.diabeteshelperserver.groups.user.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -42,21 +44,24 @@ public class UserServiceImpl implements UserService {
         return userHashcode;
     }
     
-    public void authorizeUser(
-        String emailOrPhoneNumber,
-        String password
+    public String authorizeUser(
+        RequestAuthorizeUser requestAuthorizeUser
     ) {
         userRepository.authorizeUser(
-            emailOrPhoneNumber,
-            password
+            requestAuthorizeUser.getEmailOrPhoneNumber(),
+            requestAuthorizeUser.getPassword()
+        );
+        
+        return userRepository.findByEmailOrPhoneNumberAndSelectUserHashcode(
+            requestAuthorizeUser.getEmailOrPhoneNumber()
         );
     }
     
     public void unauthorizeUser(
-        String userHashcode
+        RequestUnauthorizeUser requestUnauthorizeUser
     ) {
         userRepository.unauthorizeUser(
-            userHashcode
+            requestUnauthorizeUser.getUserHashcode()
         );
     }
 }

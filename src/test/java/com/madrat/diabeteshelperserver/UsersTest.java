@@ -17,7 +17,7 @@ class UsersTest {
     void mainTest() {
         userService.deleteAllRows();
         
-        testUserMethods(
+        /*testUserMethods(
             "jojo",
             "1234"
         );
@@ -28,14 +28,29 @@ class UsersTest {
         testUserMethods(
             "lolka",
             "1234567"
+        );*/
+        
+        String login = "+79506964164";
+        String password = "12345678";
+        
+        registerUser(
+            login,
+            password
         );
+        
+        String userHash = authorizeUser(
+            login,
+            password
+        );
+        
+        System.out.println(userHash);
     }
     
     void testUserMethods(
         String login,
         String password
     ) {
-        String userHashcode = addUser(
+        String userHashcode = registerUser(
             login,
             password
         );
@@ -65,7 +80,7 @@ class UsersTest {
         return userService.getUserByHashcode(userHashcode);
     }
     
-    String addUser(
+    String registerUser(
         String emailOrPhoneNumber,
         String password
     ) {
@@ -76,11 +91,11 @@ class UsersTest {
         return userService.registerUser(user);
     }
     
-    void authorizeUser(
+    String authorizeUser(
         String emailOrPhoneNumber,
         String password
     ) {
-        userService.authorizeUser(
+        return userService.authorizeUser(
             emailOrPhoneNumber,
             password
         );

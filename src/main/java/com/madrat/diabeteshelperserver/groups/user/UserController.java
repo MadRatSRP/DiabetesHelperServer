@@ -2,6 +2,7 @@ package com.madrat.diabeteshelperserver.groups.user;
 
 import com.madrat.diabeteshelperserver.groups.user.model.RequestAuthorizeUser;
 import com.madrat.diabeteshelperserver.groups.user.model.RequestRegisterUser;
+import com.madrat.diabeteshelperserver.groups.user.model.RequestUnauthorizeUser;
 import com.madrat.diabeteshelperserver.groups.user.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -22,26 +23,22 @@ public class UserController {
             requestRegisterUser
         );
     }
-
-    /*@PostMapping("/authorizeUser")
-    public User authorizeUser(
-            @RequestBody RequestAuthorizeUser requestAuthorizeUser
+    
+    @PostMapping("/authorizeUser")
+    public String authorizeUser(
+        @RequestBody RequestAuthorizeUser requestAuthorizeUser
     ) {
-        User savedLogin = userRepository.findByEmailOrPhoneNumber(
-                requestAuthorizeUser.getEmailOrPhoneNumber()
+        return userService.authorizeUser(
+            requestAuthorizeUser
         );
-
-        if (savedLogin.getPassword().equals(requestAuthorizeUser.getPassword())) {
-            savedLogin.setAuthorized(true);
-
-            ResponseEntity.ok(
-                    userRepository.save(
-                            savedLogin
-                    )
-            );
-            return savedLogin;
-        } else {
-            return null;
-        }
-    }*/
+    }
+    
+    @PostMapping("/unauthorizeUser")
+    public void unauthorizeUser(
+        @RequestBody RequestUnauthorizeUser requestUnauthorizeUser
+    ) {
+        userService.unauthorizeUser(
+            requestUnauthorizeUser
+        );
+    }
 }

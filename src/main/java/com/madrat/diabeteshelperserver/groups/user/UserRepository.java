@@ -17,6 +17,9 @@ public interface UserRepository extends JpaRepository<User, Integer> {
     @Query("SELECT u FROM User u WHERE u.emailOrPhoneNumber = :emailOrPhoneNumber")
     User findByEmailOrPhoneNumber(String emailOrPhoneNumber);
     
+    @Query("SELECT u.userHashcode FROM User u WHERE u.emailOrPhoneNumber = :emailOrPhoneNumber")
+    String findByEmailOrPhoneNumberAndSelectUserHashcode(String emailOrPhoneNumber);
+    
     @Modifying
     @Transactional
     @Query("UPDATE User u SET u.isAuthorized = true WHERE u.emailOrPhoneNumber = :emailOrPhoneNumber AND u.password = :password")
