@@ -18,6 +18,12 @@ public interface DiabetesNotesRepository extends JpaRepository<DiabetesNote, Int
     
     @Query("SELECT u FROM DiabetesNote u WHERE u.userId = :userId")
     List<DiabetesNote> selectAllByUserId(Integer userId);
+
+    @Query("SELECT u FROM DiabetesNote u WHERE u.id = :id AND u.userId = :userId")
+    DiabetesNote selectByIds(
+            Integer id,
+            Integer userId
+    );
     
     @Modifying
     @Transactional

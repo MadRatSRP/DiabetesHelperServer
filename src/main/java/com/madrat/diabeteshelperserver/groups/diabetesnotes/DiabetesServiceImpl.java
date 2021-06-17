@@ -45,10 +45,10 @@ public class DiabetesServiceImpl implements DiabetesService{
     }
     
     public List<DiabetesNote> getAllNotes(
-        RequestGetDiabetesNotes requestGetDiabetesNotes
+            String userHashcode
     ) {
         User currentUser = userRepository.findByUserHashcode(
-            requestGetDiabetesNotes.getUserHashcode()
+                userHashcode
         );
         
         return diabetesRepository.selectAllByUserId(
@@ -56,7 +56,7 @@ public class DiabetesServiceImpl implements DiabetesService{
         );
     }
     
-    public void updateNote(
+    public DiabetesNote updateNote(
         Integer noteId,
         RequestUpdateDiabetesNote requestUpdateDiabetesNote
     ) {
@@ -69,14 +69,19 @@ public class DiabetesServiceImpl implements DiabetesService{
             currentUser.getId(),
             requestUpdateDiabetesNote.getSugarLevel()
         );
+
+        return diabetesRepository.selectByIds(
+                noteId,
+                currentUser.getId()
+        );
     }
     
     public void removeNote(
         Integer noteId,
-        RequestDeleteDiabetesNote requestDeleteDiabetesNote
+        String userHashcode
     ) {
         User currentUser = userRepository.findByUserHashcode(
-            requestDeleteDiabetesNote.getUserHashcode()
+            userHashcode
         );
         
         diabetesRepository.deleteNote(

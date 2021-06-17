@@ -6,6 +6,7 @@ import com.madrat.diabeteshelperserver.groups.diabetesnotes.model.RequestGetDiab
 import com.madrat.diabeteshelperserver.groups.diabetesnotes.model.RequestUpdateDiabetesNote;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import com.madrat.diabeteshelperserver.groups.user.model.User;
 
 import java.util.List;
 
@@ -29,30 +30,31 @@ public class DiabetesNotesController {
     
     @GetMapping("/notes")
     public List<DiabetesNote> getAllNotes(
-        @RequestParam RequestGetDiabetesNotes requestGetDiabetesNotes
+        @RequestParam String userHashcode
     ) {
-        return diabetesService.getAllNotes(requestGetDiabetesNotes);
+        return diabetesService.getAllNotes(userHashcode);
     }
     
     @PutMapping("/notes/{noteId}")
-    public void updateDiabetesNote(
+    public DiabetesNote updateDiabetesNote(
         @PathVariable Integer noteId,
         @RequestBody RequestUpdateDiabetesNote requestUpdateDiabetesNote
     ) {
-        diabetesService.updateNote(
+        return diabetesService.updateNote(
             noteId,
             requestUpdateDiabetesNote
         );
     }
     
     @DeleteMapping("/notes/{noteId}")
-    public void removeNote(
+    public Integer removeNote(
         @PathVariable Integer noteId,
-        @RequestParam RequestDeleteDiabetesNote requestDeleteDiabetesNote
+        @RequestParam String userHashcode
     ) {
         diabetesService.removeNote(
             noteId,
-            requestDeleteDiabetesNote
+            userHashcode
         );
+        return noteId;
     }
 }

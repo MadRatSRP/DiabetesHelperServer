@@ -1,12 +1,13 @@
 package com.madrat.diabeteshelperserver.groups.user;
 
+import com.madrat.diabeteshelperserver.groups.user.model.RequestUnauthorizeUser;
 import com.madrat.diabeteshelperserver.groups.user.model.RequestAuthorizeUser;
 import com.madrat.diabeteshelperserver.groups.user.model.RequestRegisterUser;
-import com.madrat.diabeteshelperserver.groups.user.model.RequestUnauthorizeUser;
-import com.madrat.diabeteshelperserver.groups.user.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping(path="/users")
