@@ -1,58 +1,50 @@
 package com.madrat.diabeteshelperserver.groups.foodnotes;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Optional;
+import java.util.List;
 
 @RestController
 @RequestMapping(path="/foodNotes")
 public class FoodNotesController {
     @Autowired
-    private FoodNotesRepository foodNotesRepository;
-
+    FoodServiceImpl foodService;
+    
     @PostMapping("/addNote")
     public FoodNote addNewNote(
-            @RequestBody FoodNote foodNote
+        @RequestBody RequestAddFoodNote requestAddDiabetesNote
     ) {
-        FoodNote newNote = new FoodNote(
-                foodNote.getFoodName()
-        );
-        ResponseEntity.ok(
-                foodNotesRepository.save(
-                        newNote
-                )
-        );
-        return newNote;
+        return foodService.addNote(requestAddDiabetesNote);
     }
-
+    
     @GetMapping("/notes")
-    public Iterable<FoodNote> getAllNotes() {
-        return foodNotesRepository.findAll();
+    public List<FoodNote> getAllNotes(
+        @RequestParam String userHashcode
+    ) {
+        return foodService.getAllNotes(userHashcode);
     }
-
+    
     @PutMapping("/notes/{noteId}")
     public FoodNote updateDiabetesNote(
-            @PathVariable Integer noteId,
-            @RequestBody FoodNote foodNote
+        @PathVariable Integer noteId,
+        @RequestBody RequestUpdateFoodNote requestUpdateDiabetesNote
     ) {
-        Optional<FoodNote> foodNoteData = foodNotesRepository.findById(noteId);
-        FoodNote updatedFoodNote = foodNoteData.get();
-        updatedFoodNote.setFoodName(foodNote.getFoodName());
-        ResponseEntity.ok(
-                foodNotesRepository.save(
-                        updatedFoodNote
-                )
+        return foodService.updateNote(
+            noteId,
+            requestUpdateDiabetesNote
         );
-        return updatedFoodNote;
     }
-
+    
     @DeleteMapping("/notes/{noteId}")
     public Integer removeNote(
-            @PathVariable Integer noteId
+        @PathVariable Integer noteId,
+        @RequestParam String userHashcode
     ) {
-        foodNotesRepository.deleteById(noteId);
+        foodService.removeNote(
+            noteId,
+            userHashcode
+        );
         return noteId;
     }
 }

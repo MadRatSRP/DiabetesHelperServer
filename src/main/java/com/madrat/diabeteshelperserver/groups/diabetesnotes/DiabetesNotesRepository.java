@@ -41,12 +41,4 @@ public interface DiabetesNotesRepository extends JpaRepository<DiabetesNote, Int
         Integer id,
         Integer userId
     );
-    
-    /*@Modifying
-    @Transactional
-    @Query("UPDATE User u SET u.isAuthorized = true WHERE u.emailOrPhoneNumber = :emailOrPhoneNumber AND u.password = :password")
-    void authorizeUser(
-        @Param("emailOrPhoneNumber") String emailOrPhoneNumber,
-        @Param("password") String password
-    );*/
 }
