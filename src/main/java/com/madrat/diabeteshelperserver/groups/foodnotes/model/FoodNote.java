@@ -1,4 +1,4 @@
-package com.madrat.diabeteshelperserver.groups.foodnotes;
+package com.madrat.diabeteshelperserver.groups.foodnotes.model;
 
 
 import lombok.Data;

@@ -1,5 +1,8 @@
 package com.madrat.diabeteshelperserver.groups.foodnotes;
 
+import com.madrat.diabeteshelperserver.groups.foodnotes.model.FoodNote;
+import com.madrat.diabeteshelperserver.groups.foodnotes.model.RequestAddFoodNote;
+import com.madrat.diabeteshelperserver.groups.foodnotes.model.RequestUpdateFoodNote;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

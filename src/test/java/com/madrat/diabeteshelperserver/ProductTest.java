@@ -1,14 +1,7 @@
 package com.madrat.diabeteshelperserver;
 
-import com.madrat.diabeteshelperserver.groups.diabetesnotes.DiabetesNote;
-import com.madrat.diabeteshelperserver.groups.diabetesnotes.DiabetesServiceImpl;
-import com.madrat.diabeteshelperserver.groups.diabetesnotes.model.RequestAddDiabetesNote;
-import com.madrat.diabeteshelperserver.groups.diabetesnotes.model.RequestDeleteDiabetesNote;
-import com.madrat.diabeteshelperserver.groups.diabetesnotes.model.RequestGetDiabetesNotes;
-import com.madrat.diabeteshelperserver.groups.diabetesnotes.model.RequestUpdateDiabetesNote;
-import com.madrat.diabeteshelperserver.groups.user.UserServiceImpl;
-import com.madrat.diabeteshelperserver.groups.user.model.RequestRegisterUser;
-import com.madrat.diabeteshelperserver.groups.user.model.User;
+import com.madrat.diabeteshelperserver.groups.product.ProductServiceImpl;
+import com.madrat.diabeteshelperserver.groups.product.model.Product;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -16,29 +9,29 @@ import org.springframework.boot.test.context.SpringBootTest;
 import java.util.List;
 
 @SpringBootTest
-public class DiabetesTest {
+public class ProductTest {
     @Autowired
-    DiabetesServiceImpl diabetesService;
-    
-    @Autowired
-    UserServiceImpl userService;
+    ProductServiceImpl productService;
     
     @Test
     void mainTest() {
-        userService.deleteAllRows();
-        diabetesService.deleteAllRows();
-        
-        String currentUserHashcode = userService.registerUser(
-            new RequestRegisterUser(
-                "jojo",
-                "1234"
-            )
-        );
-        
-        Double[] values = {55.25, 66.66, 77.77, 77.88};
-        
-        //testDiabetesMethods(currentUserHashcode, values);
+        /*getProducts();
+        removeAllProducts();*/
     }
+    
+    void removeAllProducts() {
+        productService.deleteAllRows();
+    }
+    
+    void getProducts() {
+        List<Product> products = productService.getAllProducts();
+    
+        for (Product product : products) {
+            System.out.println(product.toString());
+        }
+    }
+    
+    
     
     /*void testDiabetesMethods(
         String userHashcode,
@@ -82,3 +75,4 @@ public class DiabetesTest {
         );
     }*/
 }
+
