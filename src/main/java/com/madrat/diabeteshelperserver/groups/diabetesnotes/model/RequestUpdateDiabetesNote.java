@@ -11,5 +11,7 @@ import javax.persistence.Column;
 @AllArgsConstructor
 public class RequestUpdateDiabetesNote {
     String userHashcode;
-    Double sugarLevel;
+    Double glucoseLevel;
+    String noteTime;
+    String noteDate;
 }

@@ -11,8 +11,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 public class Product {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @Column(name = "productName")
@@ -31,12 +30,14 @@ public class Product {
     private Integer calories;
 
     public Product(
+        Integer id,
         String productName,
         Integer proteins,
         Integer fats,
         Integer carbohydrates,
         Integer calories
     ) {
+        this.id = id;
         this.productName = productName;
         this.proteins = proteins;
         this.fats = fats;

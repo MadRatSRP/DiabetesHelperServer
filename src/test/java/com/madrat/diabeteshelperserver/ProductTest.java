@@ -2,6 +2,7 @@ package com.madrat.diabeteshelperserver;
 
 import com.madrat.diabeteshelperserver.groups.product.ProductServiceImpl;
 import com.madrat.diabeteshelperserver.groups.product.model.Product;
+import com.madrat.diabeteshelperserver.groups.product.model.RequestAddProduct;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -15,8 +16,9 @@ public class ProductTest {
     
     @Test
     void mainTest() {
-        /*getProducts();
-        removeAllProducts();*/
+        //removeAllProducts();
+        //addProducts();
+        //removeProduct(397);
     }
     
     void removeAllProducts() {
@@ -31,48 +33,45 @@ public class ProductTest {
         }
     }
     
-    
-    
-    /*void testDiabetesMethods(
-        String userHashcode,
-        Double[] values
-    ) {
-        for (Double value : values) {
-            diabetesService.addNote(
-                new RequestAddDiabetesNote(
-                    value,
-                    userHashcode
-                )
-            );
-        }
-    
-        
-        List<DiabetesNote> notes = diabetesService.getAllNotes(
-            new RequestGetDiabetesNotes(
-                userHashcode
-            )
+    void addProducts() {
+        RequestAddProduct productOne = new RequestAddProduct(
+            "сальце",
+            1,
+            2,
+            3,
+            4
         );
-        for (DiabetesNote note: notes) {
-            System.out.println("NewNote");
-            System.out.println("New Note:" + note.toString());
-        }
-    
-        for (DiabetesNote note: notes) {
-            diabetesService.updateNote(
-                note.getId(),
-                new RequestUpdateDiabetesNote(
-                    userHashcode,
-                    7.77
-                )
-            );
-        }
-        
-        diabetesService.removeNote(
-            notes.get(0).getId(),
-            new RequestDeleteDiabetesNote(
-                userHashcode
-            )
+        RequestAddProduct productTwo = new RequestAddProduct(
+            "борщик",
+            5,
+            5,
+            5,
+            5
         );
+        RequestAddProduct productThree = new RequestAddProduct(
+            "томатная паста",
+            15,
+            15,
+            15,
+            15
+        );
+        
+        Product firstResult = productService.addProduct(
+            productOne
+        );
+        Product secondResult = productService.addProduct(
+            productTwo
+        );
+        Product thirdResult = productService.addProduct(
+            productThree
+        );
+        System.out.println(firstResult);
+        System.out.println(secondResult);
+        System.out.println(thirdResult);
+    }
+    
+    /*void removeProduct(Integer productId) {
+        productService.removeNote(productId);
     }*/
 }
 

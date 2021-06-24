@@ -34,7 +34,9 @@ public class DiabetesServiceImpl implements DiabetesService{
         
         DiabetesNote newNote = new DiabetesNote(
             currentUser.getId(),
-            requestAddDiabetesNote.getSugarLevel()
+            requestAddDiabetesNote.getGlucoseLevel(),
+            requestAddDiabetesNote.getNoteTime(),
+            requestAddDiabetesNote.getNoteDate()
         );
         ResponseEntity.ok(
             diabetesRepository.save(
@@ -67,7 +69,9 @@ public class DiabetesServiceImpl implements DiabetesService{
         diabetesRepository.updateNote(
             noteId,
             currentUser.getId(),
-            requestUpdateDiabetesNote.getSugarLevel()
+            requestUpdateDiabetesNote.getGlucoseLevel(),
+            requestUpdateDiabetesNote.getNoteTime(),
+            requestUpdateDiabetesNote.getNoteDate()
         );
 
         return diabetesRepository.selectByIds(

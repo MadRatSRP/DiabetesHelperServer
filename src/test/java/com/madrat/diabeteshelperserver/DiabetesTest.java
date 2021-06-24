@@ -37,27 +37,27 @@ public class DiabetesTest {
         
         Double[] values = {55.25, 66.66, 77.77, 77.88};
         
-        //testDiabetesMethods(currentUserHashcode, values);
+        testDiabetesMethods(currentUserHashcode, values);
     }
     
-    /*void testDiabetesMethods(
+    void testDiabetesMethods(
         String userHashcode,
         Double[] values
     ) {
         for (Double value : values) {
             diabetesService.addNote(
                 new RequestAddDiabetesNote(
+                    userHashcode,
                     value,
-                    userHashcode
+                    "18:00",
+                    "19.12.21"
                 )
             );
         }
     
         
         List<DiabetesNote> notes = diabetesService.getAllNotes(
-            new RequestGetDiabetesNotes(
-                userHashcode
-            )
+            userHashcode
         );
         for (DiabetesNote note: notes) {
             System.out.println("NewNote");
@@ -67,18 +67,19 @@ public class DiabetesTest {
         for (DiabetesNote note: notes) {
             diabetesService.updateNote(
                 note.getId(),
+                
                 new RequestUpdateDiabetesNote(
                     userHashcode,
-                    7.77
+                    7.77,
+                    "19:00",
+                    "15.12.21"
                 )
             );
         }
         
         diabetesService.removeNote(
             notes.get(0).getId(),
-            new RequestDeleteDiabetesNote(
-                userHashcode
-            )
+            userHashcode
         );
-    }*/
+    }
 }

@@ -12,20 +12,25 @@ import javax.persistence.*;
 public class DiabetesNote {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id")
     private Integer id;
-
-    @Column(name = "userId")
+    
     private Integer userId;
     
-    @Column(name = "sugarLevel")
-    private Double sugarLevel;
+    private Double glucoseLevel;
+    
+    private String noteTime;
+    
+    private String noteDate;
 
     public DiabetesNote(
             Integer userId,
-            Double sugarLevel
+            Double glucoseLevel,
+            String noteTime,
+            String noteDate
     ) {
        this.userId = userId;
-       this.sugarLevel = sugarLevel;
+       this.glucoseLevel = glucoseLevel;
+       this.noteTime = noteTime;
+       this.noteDate = noteDate;
     }
 }

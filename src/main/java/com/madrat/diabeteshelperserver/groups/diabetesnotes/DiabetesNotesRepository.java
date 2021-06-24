@@ -1,14 +1,11 @@
 package com.madrat.diabeteshelperserver.groups.diabetesnotes;
 
-import com.madrat.diabeteshelperserver.groups.user.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.Column;
 import java.util.List;
 
 @Repository
@@ -27,11 +24,13 @@ public interface DiabetesNotesRepository extends JpaRepository<DiabetesNote, Int
     
     @Modifying
     @Transactional
-    @Query("UPDATE DiabetesNote u SET u.sugarLevel = :sugarLevel WHERE u.id = :id AND u.userId = :userId")
+    @Query("UPDATE DiabetesNote u SET u.glucoseLevel = :glucoseLevel, u.noteTime = :noteTime, u.noteDate = :noteDate WHERE u.id = :id AND u.userId = :userId")
     void updateNote(
         Integer id,
         Integer userId,
-        Double sugarLevel
+        Double glucoseLevel,
+        String noteTime,
+        String noteDate
     );
     
     @Modifying

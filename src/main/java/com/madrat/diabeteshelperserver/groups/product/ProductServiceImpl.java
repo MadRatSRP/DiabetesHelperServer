@@ -19,10 +19,15 @@ public class ProductServiceImpl implements ProductService {
         productRepository.deleteAll();
     }
     
+    public List<Product> getAllProducts() {
+        return productRepository.selectAll();
+    }
+    
     public Product addProduct(
         RequestAddProduct requestAddProduct
     ) {
         Product product = new Product(
+            null,
             requestAddProduct.getProductName(),
             requestAddProduct.getProteins(),
             requestAddProduct.getFats(),
@@ -35,10 +40,6 @@ public class ProductServiceImpl implements ProductService {
             )
         );
         return product;
-    }
-    
-    public List<Product> getAllProducts() {
-        return productRepository.selectAll();
     }
     
     /*public Product updateProduct(

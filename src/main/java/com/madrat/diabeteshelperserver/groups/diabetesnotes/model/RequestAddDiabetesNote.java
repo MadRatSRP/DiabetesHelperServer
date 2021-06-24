@@ -9,7 +9,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class RequestAddDiabetesNote {
-    Double sugarLevel;
-
     String userHashcode;
+    Double glucoseLevel;
+    String noteTime;
+    String noteDate;
 }
