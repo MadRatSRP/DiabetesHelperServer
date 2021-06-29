@@ -25,36 +25,49 @@ public class DiabetesTest {
     
     @Test
     void mainTest() {
-        userService.deleteAllRows();
-        diabetesService.deleteAllRows();
+        /*userService.deleteAllRows();
+        diabetesService.deleteAllRows();*/
         
-        String currentUserHashcode = userService.registerUser(
+        /*String currentUserHashcode = userService.registerUser(
             new RequestRegisterUser(
                 "jojo",
                 "1234"
             )
         );
         
-        Double[] values = {55.25, 66.66, 77.77, 77.88};
+        Double[] values = {55.25, 66.66, 77.77, 77.88};*/
         
-        testDiabetesMethods(currentUserHashcode, values);
+        //testDiabetesMethods(currentUserHashcode, values);
+        /*addNote(
+                currentUserHashcode,
+                values
+        );*/
+
+
+
+        User user = userService.getUserByHashcode("-1361335940");
+
+        diabetesService.addNote(
+                new RequestAddDiabetesNote(
+                        user.getUserHashcode(),
+                        44.44,
+                        "18:00",
+                        "19.12.21"
+                )
+        );
     }
-    
+
+    void addNote(
+            String userHashcode,
+            Double[] values
+    ) {
+
+    }
+
     void testDiabetesMethods(
         String userHashcode,
         Double[] values
     ) {
-        for (Double value : values) {
-            diabetesService.addNote(
-                new RequestAddDiabetesNote(
-                    userHashcode,
-                    value,
-                    "18:00",
-                    "19.12.21"
-                )
-            );
-        }
-    
         
         List<DiabetesNote> notes = diabetesService.getAllNotes(
             userHashcode

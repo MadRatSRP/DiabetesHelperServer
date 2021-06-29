@@ -1,5 +1,6 @@
 package com.madrat.diabeteshelperserver.groups.diabetesnotes;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -9,9 +10,10 @@ import javax.persistence.*;
 @Table(name = "diabetesnotes")
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
 public class DiabetesNote {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     
     private Integer userId;
@@ -21,16 +23,4 @@ public class DiabetesNote {
     private String noteTime;
     
     private String noteDate;
-
-    public DiabetesNote(
-            Integer userId,
-            Double glucoseLevel,
-            String noteTime,
-            String noteDate
-    ) {
-       this.userId = userId;
-       this.glucoseLevel = glucoseLevel;
-       this.noteTime = noteTime;
-       this.noteDate = noteDate;
-    }
 }

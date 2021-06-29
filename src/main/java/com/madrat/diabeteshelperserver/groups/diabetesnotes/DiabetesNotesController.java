@@ -16,7 +16,7 @@ public class DiabetesNotesController {
     @Autowired
     DiabetesServiceImpl diabetesService;
     
-    @PostMapping("/addNote")
+    @PostMapping("/addNote/")
     public DiabetesNote addNewNote(
         @RequestBody RequestAddDiabetesNote requestAddDiabetesNote
     ) {

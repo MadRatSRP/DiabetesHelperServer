@@ -33,6 +33,7 @@ public class DiabetesServiceImpl implements DiabetesService{
         );
         
         DiabetesNote newNote = new DiabetesNote(
+            null,
             currentUser.getId(),
             requestAddDiabetesNote.getGlucoseLevel(),
             requestAddDiabetesNote.getNoteTime(),
